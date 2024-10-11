@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
           <div class="card">
             <div class="card-body">
               <h3 class="card-title text-center mb-4">Acceso al sistema</h3>
-              <form th:action="@{/submitLoginForm}">
+              <form method="post" th:action="@{/submitLoginForm}">
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo</label>
                   <input type="email" class="form-control" id="email" placeholder="Correo">
