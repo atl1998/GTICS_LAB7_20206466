@@ -65,10 +65,19 @@ public class WebSecurityConfig {
                             break;
                         }
 
-                        if (rol.equals("admin")) {
-                            response.sendRedirect("/shipper");
-                        } else {
-                            response.sendRedirect("/employee");
+                        switch (rol) {
+                            case "ADMIN":
+                                response.sendRedirect("/admin");
+                                break;
+                            case "GERENTE":
+                                response.sendRedirect("/gerente");
+                                break;
+                            case "CLIENTE":
+                                response.sendRedirect("/cliente");
+                                break;
+                            default:
+                                response.sendRedirect("/default"); // Puedes cambiar esto según lo que necesites
+                                break;
                         }
                     }
                 });
@@ -78,8 +87,9 @@ public class WebSecurityConfig {
             todo lo demas (en este ejemplo, product) -> libre
          */
         http.authorizeHttpRequests()
-                .requestMatchers("/employee", "/employee/**").hasAnyAuthority("admin", "logistica")
-                .requestMatchers("/shipper", "/shipper/**").hasAnyAuthority("admin")
+                .requestMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")
+                .requestMatchers("/gerente", "/gerente/**").hasAnyAuthority("GERENTE")
+                .requestMatchers("/gerente", "/gerente/**").hasAnyAuthority("CLIENTE")
                 .anyRequest().permitAll();
 
         http.logout()
@@ -93,13 +103,14 @@ public class WebSecurityConfig {
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        //para loguearse sqlAuth -> username | password | enable
-        String sqlAuth = "SELECT email,pwd,activo FROM usuario where email = ?";
 
-        //para autenticación -> username, nombre del rol
-        String sqlAuto = "SELECT u.email, r.nombre FROM usuario u " +
-                "inner join rol r on u.idrol = r.idrol " +
-                "where u.email = ?";
+        // Devolver email, password y 'true' como enabled
+        String sqlAuth = "SELECT email, password, true as enabled FROM users WHERE email = ?";
+
+        // Consulta para obtener las autoridades (roles)
+        String sqlAuto = "SELECT u.email, r.name FROM users u " +
+                "INNER JOIN roles r ON u.roleId = r.id " +
+                "WHERE u.email = ?";
 
         users.setUsersByUsernameQuery(sqlAuth);
         users.setAuthoritiesByUsernameQuery(sqlAuto);

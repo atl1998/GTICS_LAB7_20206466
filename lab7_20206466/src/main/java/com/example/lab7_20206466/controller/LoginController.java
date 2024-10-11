@@ -8,7 +8,13 @@ public class LoginController {
 
     @GetMapping("/openLoginWindow")
     public String loginWindow(){
-        return "loginWindow";
+        return "login";
+    }
+
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
     }
 }
 

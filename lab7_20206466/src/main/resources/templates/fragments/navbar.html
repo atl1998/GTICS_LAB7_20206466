@@ -17,24 +17,24 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mt-lg-0">
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('admin','gerente')">
-                            <a class="nav-link" th:classappend="${active == 'Employee'?'active':''}"
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','GERENTE')">
+                            <a class="nav-link" th:classappend="${active == 'Funciones'?'active':''}"
                                th:href="@{/funciones}">Employee</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('admin')">
-                            <a class="nav-link" th:classappend="${active == 'Employee'?'active':''}"
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                            <a class="nav-link" th:classappend="${active == 'AllReservas'?'active':''}"
                                th:href="@{/allreservas}">Employee</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('gerente')">
-                            <a class="nav-link" th:classappend="${active == 'Shipper'?'active':''}"
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('GERENTE')">
+                            <a class="nav-link" th:classappend="${active == 'Salas'?'active':''}"
                                th:href="@{/salas}">Shipper</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('gerente,cliente')">
-                            <a class="nav-link" th:classappend="${active == 'Shipper'?'active':''}"
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('GERENTE,CLIENTE')">
+                            <a class="nav-link" th:classappend="${active == 'Obras'?'active':''}"
                                th:href="@{/obras}">Shipper</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('cliente')">
-                            <a class="nav-link" th:classappend="${active == 'Shipper'?'active':''}"
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
+                            <a class="nav-link" th:classappend="${active == 'MisReservas'?'active':''}"
                                th:href="@{/misreservas}">Shipper</a>
                         </li>
                     </ul>
@@ -42,7 +42,7 @@
                         <a th:href="@{/openLoginWindow}">(Iniciar Sesión)</a>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <span th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></span>
+                        <span th:text="|Bienvenido ${session.usuario.nombre}"></span>
                         <form th:action="@{/logout}" method="post">
                             <input class="btn btn-link" type="submit" value="(Cerrar Sesión)">
                         </form>

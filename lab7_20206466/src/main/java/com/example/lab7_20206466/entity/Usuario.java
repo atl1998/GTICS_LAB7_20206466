@@ -8,19 +8,20 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@Table(name = "usuario")
+@Table(name = "users")
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idusuario;
     @Column(nullable = false)
-    private String nombre;
-    @Column(nullable = false)
-    private String apellido;
-    @Column(nullable = false)
-    private String dni;
-    @Column(nullable = false)
-    private String edad;
-    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
+    private String password;
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private Rol rol;
+    @Column(nullable = false)
+    private String nombre;
+
+
 }

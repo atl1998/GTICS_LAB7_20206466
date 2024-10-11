@@ -13,7 +13,7 @@
           <div class="card">
             <div class="card-body">
               <h3 class="card-title text-center mb-4">Acceso al sistema</h3>
-              <form>
+              <form th:action="@{/submitLoginForm}">
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo</label>
                   <input type="email" class="form-control" id="email" placeholder="Correo">
@@ -23,8 +23,9 @@
                   <input type="password" class="form-control" id="password" placeholder="Contraseña">
                 </div>
                 <div class="d-grid gap-2">
+                  <h4 th:if="${param.error}" class="form-signin-heading" style="color:red">Acceso denegado</h4>
                   <button type="submit" class="btn btn-primary">Ingresar</button>
-                  <button type="button" class="btn btn-secondary">Registrarse</button>
+                  <a type="button" class="btn btn-secondary" href="/register">Registrarse</a>
                 </div>
               </form>
             </div>
